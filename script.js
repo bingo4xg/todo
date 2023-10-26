@@ -34,6 +34,7 @@ function createNewTodo()
     // 자동 입력창 포커스
     inputEl.focus();
 
+    // 저장
     saveToLocalStorage();
 }
 
@@ -114,13 +115,15 @@ function createTodoElement(item)
 	return {itemEl, inputEl, editBtnEl, removeBtnEl}
 }
 
-function displayTodos() {
+function displayTodos() 
+{
 	loadFromLocalStorage();
 
-	for (let i = 0; i < todos.length; i++) {
+	for (let i = 0; i < todos.length; i++) 
+    {
 		const item = todos[i];
 
-		const { itemEl } = createTodoElement(item);
+		const {itemEl} = createTodoElement(item);
 
 		list.append(itemEl);
 	}
@@ -134,10 +137,12 @@ function saveToLocalStorage() {
 }
 
 // 로드
-function loadFromLocalStorage() {
+function loadFromLocalStorage() 
+{
 	const data = localStorage.getItem("my_todos");
     
-	if (data) {
+	if (data) 
+    {
 		todos = JSON.parse(data);
 	}
 }
