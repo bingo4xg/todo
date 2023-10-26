@@ -136,7 +136,7 @@ function saveToLocalStorage() {
 // 로드
 function loadFromLocalStorage() {
 	const data = localStorage.getItem("my_todos");
-
+    
 	if (data) {
 		todos = JSON.parse(data);
 	}
