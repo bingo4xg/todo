@@ -1,13 +1,18 @@
-
 const list = document.getElementById("list");
 const createBtn = document.getElementById("create-btn");
 
+// 항목 저장할 배열
 let todos = [];
 
 createBtn.addEventListener("click", createNewTodo);
 
+// 페이지 로딩 시 저장된 항목들 표시
+displayTodos();
+
+// +버튼 눌렀을때
 function createNewTodo()
 {
+    // 새 항목 생성
     const item = {
         id: new Date().getTime(), 
         text: "", 
@@ -20,18 +25,19 @@ function createNewTodo()
     // 요소 생성
     const {itemEl, inputEl, editBtnEl, removeBtnEl} = createTodoElement(item); 
 
-    // +버튼 누르면 새 아이템 추가
+    // 새 아이템 추가
     list.prepend(itemEl);
 
     // disable 속성 제거
     inputEl.removeAttribute("disabled");
 
-    // +버튼 누르면 자동 입력창 포커스
+    // 자동 입력창 포커스
     inputEl.focus();
 
     saveToLocalStorage();
 }
 
+// 항목 생성
 function createTodoElement(item)
 {
     const itemEl = document.createElement("div");
@@ -51,6 +57,7 @@ function createTodoElement(item)
     inputEl.value = item.text;
     inputEl.setAttribute("disabled", "");
 
+    // 버튼들 div
     const actionsEl = document.createElement("div");
     actionsEl.classList.add("actions");
 
@@ -69,7 +76,7 @@ function createTodoElement(item)
     itemEl.append(inputEl);
     itemEl.append(actionsEl);
 
-	// EVENTS
+	// 각 요소에 이벤트 리스너 추가
 	checkboxEl.addEventListener("change", () => {
 		item.complete = checkboxEl.checked;
 
@@ -119,19 +126,18 @@ function displayTodos() {
 	}
 }
 
-displayTodos();
-
+// 저장
 function saveToLocalStorage() {
 	const data = JSON.stringify(todos);
 
 	localStorage.setItem("my_todos", data);
 }
 
+// 로드
 function loadFromLocalStorage() {
 	const data = localStorage.getItem("my_todos");
 
 	if (data) {
 		todos = JSON.parse(data);
 	}
-
 }
